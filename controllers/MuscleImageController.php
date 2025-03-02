@@ -53,6 +53,20 @@ class MuscleImageController {
         imagedestroy($im);
     }
 
+    public static function getBaseImage($transparentBackground) {
+        header('Content-Type: image/png');
+        header("Access-Control-Allow-Origin: *");
+
+        if ($transparentBackground == null || $transparentBackground == 0) {
+            $baseImage = imagecreatefrompng('./resources/images/baseImage.png');
+        } else {
+            $baseImage = imagecreatefrompng('./resources/images/baseImage_transparent.png');
+        }
+
+        imagepng($baseImage);
+        imagedestroy($baseImage);
+    }
+
     public static function getMuscleImage($muscleGroupsQuery, $transparentBackground) {
 
         header('Content-Type: image/png');
@@ -196,25 +210,27 @@ class MuscleImageController {
         $counter = 0;
         foreach ($muscleGroupsArray as $muscleGroup) {
 
-            if (!in_array($muscleGroup, MuscleImageController::$availableMuscleGroups)) {
-                http_response_code(400);
-                exit;
+            if ($muscleGroup != "") {
+                if (!in_array($muscleGroup, MuscleImageController::$availableMuscleGroups)) {
+                    http_response_code(400);
+                    exit;
+                }
+
+                $muscleGroupImage = imagecreatefrompng('./resources/images/' . $muscleGroup . '.png');
+
+                $index = imagecolorexact($muscleGroupImage, 89, 136, 255);
+                $rgbColor = self::hex2RGB($colorsArray[$counter]);
+                if ($counter < sizeof($colorsArray) - 1) {
+                    $counter++;
+                }
+                imagecolorset($muscleGroupImage, $index, $rgbColor["red"], $rgbColor["green"], $rgbColor["blue"]);
+
+                imagealphablending($baseImage, false);
+                imagesavealpha($baseImage, true);
+
+                imagecopymerge($baseImage, $muscleGroupImage, 0, 0, 0, 0, 1920, 1920, 100);
+                imagedestroy($muscleGroupImage);
             }
-
-            $muscleGroupImage = imagecreatefrompng('./resources/images/' . $muscleGroup . '.png');
-
-            $index = imagecolorexact($muscleGroupImage,89,136,255);
-            $rgbColor = self::hex2RGB($colorsArray[$counter]);
-            if ($counter < sizeof($colorsArray) - 1) {
-                $counter++;
-            }
-            imagecolorset($muscleGroupImage, $index, $rgbColor["red"], $rgbColor["green"], $rgbColor["blue"]);
-
-            imagealphablending($baseImage, false);
-            imagesavealpha($baseImage, true);
-
-            imagecopymerge($baseImage, $muscleGroupImage, 0, 0, 0, 0, 1920, 1920, 100);
-            imagedestroy($muscleGroupImage);
         }
 
         imagepng($baseImage);

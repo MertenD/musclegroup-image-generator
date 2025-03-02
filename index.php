@@ -7,6 +7,16 @@ Router::createRoute('get', '/getMuscleGroups', function() {
     MuscleImageController::getMuscleGroups();
 });
 
+Router::createRoute('get', '/getBaseImage', function() {
+    MuscleImageController::getBaseImage(0);
+});
+
+Router::createRouteWithQueryParameters('get', '/getBaseImage', array(
+    'transparentBackground' => Router::$PARAMETER_TYPE['number']
+),function($transparentBackground) {
+    MuscleImageController::getBaseImage($transparentBackground);
+});
+
 Router::createRouteWithQueryParameters('get', '/getImage', array(
     'muscleGroups' => Router::$PARAMETER_TYPE['string'],
     'color' => Router::$PARAMETER_TYPE['string'],
@@ -42,17 +52,11 @@ Router::createRouteWithQueryParameters('get', '/getIndividualColorImage', array(
     'colors' => Router::$PARAMETER_TYPE['string'],
     'transparentBackground' => Router::$PARAMETER_TYPE['number']
 ), function ($muscleGroups, $colors, $transparentBackground) {
-    if ( $muscleGroups == null || $colors == null) {// || sizeof(explode(",", $muscleGroups)) < sizeof(explode(",", $colors))) {
-        http_response_code(400);
-        exit;
+    if ( $muscleGroups == null || $colors == null) {
+        MuscleImageController::getIndividualColorImage("", "", $transparentBackground);
+    } else {
+        MuscleImageController::getIndividualColorImage($muscleGroups, $colors, $transparentBackground);
     }
-    MuscleImageController::getIndividualColorImage($muscleGroups, $colors, $transparentBackground);
-});
-
-Router::createRouteWithQueryParameters('get', '/getBaseImage', array(
-    'transparentBackground' => Router::$PARAMETER_TYPE['number']
-), function($transparentBackground) {
-    MuscleImageController::getMuscleImage("", $transparentBackground);
 });
 
 Router::createRoute('get', '/', function() {
