@@ -49,6 +49,12 @@ Router::createRouteWithQueryParameters('get', '/getIndividualColorImage', array(
     MuscleImageController::getIndividualColorImage($muscleGroups, $colors, $transparentBackground);
 });
 
+Router::createRouteWithQueryParameters('get', '/getBaseImage', array(
+    'transparentBackground' => Router::$PARAMETER_TYPE['number']
+), function($transparentBackground) {
+    MuscleImageController::getMuscleImage("", $transparentBackground);
+});
+
 Router::createRoute('get', '/', function() {
     echo "Welcome to the muscle group image generator api.";
 });
