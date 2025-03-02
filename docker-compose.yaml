@@ -1,0 +1,21 @@
+services:
+  api:
+    container_name: muscle-group-image-generator-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: muscle-group-image-generator-api:latest
+    networks:
+      - web
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.merten-muscle-group-api-router.rule=Host(`musclegroupapi.mertendieckmann.de`)
+      - traefik.http.routers.merten-muscle-group-api-router.entrypoints=websecure
+      - traefik.http.routers.merten-muscle-group-api-router.tls=true
+      - traefik.http.routers.merten-muscle-group-api-router.tls.certresolver=lets-encrypt
+      - traefik.docker.network=web
+
+networks:
+  web:
+    external: true
