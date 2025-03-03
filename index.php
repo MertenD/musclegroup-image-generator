@@ -15,6 +15,10 @@ Router::createRoute('get', '/getBaseImage', function() {
     MuscleImageController::getBaseImage(0);
 });
 
+Router::createRoute('get', '/getBaseImage?', function() {
+    MuscleImageController::getBaseImage(0);
+});
+
 Router::createRouteWithQueryParameters('get', '/getBaseImage', array(
     'transparentBackground' => Router::$PARAMETER_TYPE['number']
 ),function($transparentBackground) {
