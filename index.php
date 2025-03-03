@@ -7,6 +7,10 @@ Router::createRoute('get', '/getMuscleGroups', function() {
     MuscleImageController::getMuscleGroups();
 });
 
+Router::createRoute('get', '/getMuscleGroups?', function() {
+    MuscleImageController::getMuscleGroups();
+});
+
 Router::createRoute('get', '/getBaseImage', function() {
     MuscleImageController::getBaseImage(0);
 });
