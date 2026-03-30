@@ -1,118 +1,128 @@
-# [Musclegroup Image Generator API](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
+# 🏋️‍♂️ [Musclegroup Image Generator API](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
 
-Generates an anatomical image where the requested muscle groups are highlighted on the body in your color of choice. Ideal for Apps and Websites that are centered around sports, exercises, workouts, health and gym. Give your users some visual feedback on what muscle groups they are training by dynamically generating an image that fits perfectly to the current users workout routine.
+[![RapidAPI](https://img.shields.io/badge/Hosted_on-RapidAPI-blue?style=for-the-badge&logo=rapid)](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
+[![Language](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](#)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](#)
 
-![Example image](./example.png)
+Generates an anatomical image where requested muscle groups are dynamically highlighted on the human body in your color of choice. 
 
-# API Endpoint Documentation
+Ideal for apps and websites centered around **sports, exercises, workouts, health, and gym tracking**. Give your users powerful visual feedback on which muscle groups they are targeting by generating dynamic, customized images that fit perfectly into their current workout routine.
 
-This documentation provides an overview of all available endpoints in the Muscle Group Image Generator API. Each endpoint returns an image or an appropriate error message in JSON format.
-
-## Overview
-
-- [GET /getMuscleGroups](#get-getmusclegroups)
-- [GET /getBaseImage](#get-getbaseimage)
-- [GET /getImage](#get-getimage)
-- [GET /getMulticolorImage](#get-getmulticolorimage)
-- [GET /getIndividualColorImage](#get-getindividualcolorimage)
+<img src="./example.png" alt="Example image" width="350" />
 
 ---
 
-## GET /getMuscleGroups
+## 🚀 Live API Access
 
-This endpoint returns a list of all available muscle groups.
+Don't want to host it yourself? You can access the fully managed, high-availability version of this API on RapidAPI:
+👉 **[Get API Key on RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)**
 
-### Query Parameters
-None.
+---
 
-### Possible Calls
+## 📖 API Endpoint Documentation
+
+This documentation provides an overview of all available endpoints in the Muscle Group Image Generator API. Each endpoint returns an image file or an appropriate JSON error message if the parameters are invalid.
+
+### Overview of Endpoints
+- `GET /getMuscleGroups`
+- `GET /getBaseImage`
+- `GET /getImage`
+- `GET /getMulticolorImage`
+- `GET /getIndividualColorImage`
+
+---
+
+### `GET /getMuscleGroups`
+Returns a list of all available and supported muscle groups that can be highlighted by this API.
+
+**Possible Calls:**
 - `/getMuscleGroups`
-- `/getMuscleGroups?`
-
-### Example
-```bash
-curl -X GET "http://localhost/getMuscleGroups"
-```
 
 ---
 
-## GET /getBaseImage
+### `GET /getBaseImage`
+Returns the blank, non-highlighted anatomical base image. Useful if you need the default silhouette.
 
-This endpoint returns the base image (e.g., a silhouette or basic layout).
+**Query Parameters:**
+- `transparentBackground` *(optional, default: `0`)*: Integer indicating whether the background should be transparent (`1`) or a solid color (`0`).
 
-### Query Parameters
-- `transparentBackground` (optional, default `0`): An integer value indicating whether the background should be transparent (`1`) or not (`0`).
-
-### Possible Calls
+**Possible Calls:**
 - `/getBaseImage`
-- `/getBaseImage?` (no parameters)
 - `/getBaseImage?transparentBackground=1`
 
-### Example
-```bash
-curl -X GET "http://localhost/getBaseImage?transparentBackground=1"
-```
+---
+
+### `GET /getImage`
+Returns an image in which specific muscle groups are highlighted in a single color. 
+
+**Query Parameters:**
+- `muscleGroups` *(required)*: A string specifying which muscles to highlight. Multiple muscle groups can be separated by commas (e.g., `abs,chest`).
+- `color` *(optional)*: The color used for highlighting the muscles in HEX notation (without the `#`, e.g., `FF0000`). If omitted, a default color is used.
+- `transparentBackground` *(optional, default: `0`)*: `1` for a transparent background, `0` for solid.
+
+**Possible Calls:**
+- `/getImage?muscleGroups=chest,triceps&color=FF0000&transparentBackground=1`
 
 ---
 
-## GET /getImage
+### `GET /getMulticolorImage`
+Produces an image in which two different sets of muscle groups are highlighted using two distinct colors (e.g., to distinguish between primary and secondary targeted muscles in a workout).
 
-This endpoint returns an image in which certain muscle groups can be highlighted. An optional custom color can be specified for highlighting the muscles.
+**Query Parameters:**
+- `primaryMuscleGroups` *(required)*: A comma-separated string containing the primary muscle groups.
+- `secondaryMuscleGroups` *(required)*: A comma-separated string containing the secondary muscle groups.
+- `primaryColor` *(required)*: The HEX color for the primary muscle groups.
+- `secondaryColor` *(required)*: The HEX color for the secondary muscle groups.
+- `transparentBackground` *(optional, default: `0`)*: `1` for transparent, `0` for solid.
 
-### Query Parameters
-- `muscleGroups` (**required**): A string specifying which muscles to highlight. Multiple muscle groups can be separated by commas.
-- `color` (optional): The color used for highlighting the muscles (e.g., in hex notation `FF0000`).
-- `transparentBackground` (optional, default `0`): An integer value indicating whether the background should be transparent (`1`) or not (`0`).
-
-### Possible Calls
-- `/getImage?muscleGroups=MUSCLE_GROUPS&color=COLOR&transparentBackground=0_or_1`
-
-&gt; **Note**: If `color` is not specified, a default color is used.
-
-### Example
-```bash
-curl -X GET "http://localhost/getImage?muscleGroups=biceps,triceps&color=FF0000&transparentBackground=1"
-```
+**Possible Calls:**
+- `/getMulticolorImage?primaryMuscleGroups=chest,triceps&secondaryMuscleGroups=shoulders&primaryColor=FF0000&secondaryColor=0000FF`
 
 ---
 
-## GET /getMulticolorImage
+### `GET /getIndividualColorImage`
+Allows you to assign completely individual colors for every specific muscle group in a single request. 
 
-This endpoint produces an image in which two sets of muscle groups are highlighted using different colors.
+**Query Parameters:**
+- `muscleGroups` *(required)*: A comma-separated string of muscle groups (e.g., `biceps,triceps`).
+- `colors` *(required)*: A comma-separated string of HEX colors (e.g., `FF0000,00FF00`).
+- `transparentBackground` *(optional, default: `0`)*: `1` for transparent, `0` for solid.
 
-### Query Parameters
-- `primaryMuscleGroups` (**required**): A string containing the primary muscle groups.
-- `secondaryMuscleGroups` (**required**): A string containing the secondary muscle groups.
-- `primaryColor` (**required**): The color for the primary muscle groups.
-- `secondaryColor` (**required**): The color for the secondary muscle groups.
-- `transparentBackground` (optional, default `0`): An integer value indicating whether the background should be transparent (`1`) or not (`0`).
+> **Note:** The number of hex codes provided in `colors` *must* match the exact number of muscle groups requested in `muscleGroups`.
 
-### Possible Calls
-- `/getMulticolorImage?primaryMuscleGroups=GROUPS&secondaryMuscleGroups=GROUPS&primaryColor=COLOR&secondaryColor=COLOR&transparentBackground=0_or_1`
-
-### Example
-```bash
-curl -X GET "http://localhost/getMulticolorImage?primaryMuscleGroups=biceps&secondaryMuscleGroups=triceps&primaryColor=FF0000&secondaryColor=00FF00&transparentBackground=1"
-```
+**Possible Calls:**
+- `/getIndividualColorImage?muscleGroups=biceps,triceps,abs&colors=FF0000,00FF00,0000FF`
 
 ---
 
-## GET /getIndividualColorImage
+## 🛠 Self-Hosting / Installation
 
-This endpoint allows you to assign individual colors for each muscle group. Both the muscle groups and their colors are provided as comma-separated strings.
+This project is built using PHP and Docker, making it easy to run locally or host on your own infrastructure.
 
-### Query Parameters
-- `muscleGroups` (**required**): A comma-separated string of muscle groups, for example `biceps,triceps`.
-- `colors` (**required**): A comma-separated string of colors, for example `FF0000,00FF00`.
-- `transparentBackground` (optional, default `0`): An integer value indicating whether the background should be transparent (`1`) or not (`0`).
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/MertenD/gym-api.git](https://github.com/MertenD/gym-api.git)
+   cd gym-api
+   ```
 
-&gt; **Note**: The number of colors in `colors` should match the number of muscle groups in `muscleGroups`.
+2. **Run with Docker:**
+   *(Assuming standard PHP/Apache dockerfile structure)*
+   ```bash
+   docker build -t muscle-group-api .
+   docker run -d -p 8080:80 muscle-group-api
+   ```
 
-### Possible Calls
-- `/getIndividualColorImage?muscleGroups=GROUPS&colors=COLORS&transparentBackground=0_or_1`
+3. **Test the API locally:**
+   ```bash
+   curl "http://localhost:8080/getMuscleGroups"
+   ```
 
-### Example
-```bash
-curl -X GET "http://localhost/getIndividualColorImage?muscleGroups=biceps,triceps&colors=FF0000,00FF00&transparentBackground=1"
-```
+---
 
+## 🤝 Support & Contribution
+
+If you find this API helpful, please consider giving it a ⭐ on GitHub! 
+
+If you encounter any issues or want to request a new feature (like a missing muscle group), feel free to [open an issue](https://github.com/MertenD/gym-api/issues) or submit a Pull Request.
+
+**Built by [MertenD](https://github.com/MertenD). Hosted on [RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator).**
