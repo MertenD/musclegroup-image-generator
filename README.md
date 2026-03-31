@@ -57,11 +57,16 @@ Returns an image in which specific muscle groups are highlighted in a single col
 
 **Query Parameters:**
 - `muscleGroups` *(required)*: A string specifying which muscles to highlight. Multiple muscle groups can be separated by commas (e.g., `abs,chest`).
-- `color` *(optional)*: The color used for highlighting the muscles in HEX notation (without the `#`, e.g., `FF0000`). If omitted, a default color is used.
+- `color` *(optional)*: The color used for highlighting the muscles. Supported formats:
+  - HEX: with or without `#` (e.g., `FF0000` or `#FF0000`)
+  - RGB: comma-separated values (e.g., `255,0,0`)
+  If omitted, a default color is used.
 - `transparentBackground` *(optional, default: `0`)*: `1` for a transparent background, `0` for solid.
 
 **Possible Calls:**
 - `/getImage?muscleGroups=chest,triceps&color=FF0000&transparentBackground=1`
+- `/getImage?muscleGroups=chest,triceps&color=#FF0000&transparentBackground=1`
+- `/getImage?muscleGroups=chest,triceps&color=255,0,0&transparentBackground=1`
 
 ---
 
@@ -71,12 +76,16 @@ Produces an image in which two different sets of muscle groups are highlighted u
 **Query Parameters:**
 - `primaryMuscleGroups` *(required)*: A comma-separated string containing the primary muscle groups.
 - `secondaryMuscleGroups` *(required)*: A comma-separated string containing the secondary muscle groups.
-- `primaryColor` *(required)*: The HEX color for the primary muscle groups.
-- `secondaryColor` *(required)*: The HEX color for the secondary muscle groups.
+- `primaryColor` *(required)*: The color for the primary muscle groups. Supported formats:
+  - HEX: with or without `#` (e.g., `FF0000` or `#FF0000`)
+  - RGB: comma-separated values (e.g., `255,0,0`)
+- `secondaryColor` *(required)*: The color for the secondary muscle groups. Supported formats as above.
 - `transparentBackground` *(optional, default: `0`)*: `1` for transparent, `0` for solid.
 
 **Possible Calls:**
 - `/getMulticolorImage?primaryMuscleGroups=chest,triceps&secondaryMuscleGroups=shoulders&primaryColor=FF0000&secondaryColor=0000FF`
+- `/getMulticolorImage?primaryMuscleGroups=chest,triceps&secondaryMuscleGroups=shoulders&primaryColor=#FF0000&secondaryColor=#0000FF`
+- `/getMulticolorImage?primaryMuscleGroups=chest,triceps&secondaryMuscleGroups=shoulders&primaryColor=255,0,0&secondaryColor=0,0,255`
 
 ---
 
@@ -85,7 +94,7 @@ Allows you to assign completely individual colors for every specific muscle grou
 
 **Query Parameters:**
 - `muscleGroups` *(required)*: A comma-separated string of muscle groups (e.g., `biceps,triceps`).
-- `colors` *(required)*: A comma-separated string of HEX colors (e.g., `FF0000,00FF00`).
+- `colors` *(required)*: A comma-separated string of HEX colors (e.g., `FF0000,00FF00,0000FF`).
 - `transparentBackground` *(optional, default: `0`)*: `1` for transparent, `0` for solid.
 
 > **Note:** The number of hex codes provided in `colors` *must* match the exact number of muscle groups requested in `muscleGroups`.
