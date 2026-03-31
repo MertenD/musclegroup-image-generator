@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: muscle-group-image-generator-api:latest
+    ports:
+      - "8080:80"
     networks:
       - web
     restart: unless-stopped

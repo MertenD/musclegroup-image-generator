@@ -16,6 +16,7 @@ class MuscleImageController {
         "calfs",
         "chest",
         "core",
+        "core_side",
         "core_lower",
         "core_upper",
         "forearms",
@@ -109,7 +110,21 @@ class MuscleImageController {
         } else {
             $baseImage = imagecreatefrompng('./resources/images/baseImage_transparent.png');
         }
-        $colorRgb = explode(",", $colorQuery);
+
+        // Support both HEX and RGB formats
+        if (strpos($colorQuery, ',') !== false) {
+            // RGB format: "255,0,0"
+            $colorRgb = explode(",", $colorQuery);
+            $red = $colorRgb[0];
+            $green = $colorRgb[1];
+            $blue = $colorRgb[2];
+        } else {
+            // HEX format: "#FF0000" or "FF0000"
+            $rgbColor = self::hex2RGB($colorQuery);
+            $red = $rgbColor["red"];
+            $green = $rgbColor["green"];
+            $blue = $rgbColor["blue"];
+        }
 
         $muscleGroups = explode(",", $muscleGroupsQuery);
         foreach ($muscleGroups as $muscleGroup) {
@@ -122,7 +137,7 @@ class MuscleImageController {
             $muscleGroupImage = imagecreatefrompng('./resources/images/' . $muscleGroup . '.png');
 
             $index = imagecolorexact($muscleGroupImage,89,136,255);
-            imagecolorset($muscleGroupImage, $index, $colorRgb[0], $colorRgb[1], $colorRgb[2]);
+            imagecolorset($muscleGroupImage, $index, $red, $green, $blue);
 
             imagealphablending($baseImage, false);
             imagesavealpha($baseImage, true);
@@ -145,8 +160,36 @@ class MuscleImageController {
         } else {
             $baseImage = imagecreatefrompng('./resources/images/baseImage_transparent.png');
         }
-        $primaryColorRgb = explode(",", $primaryColorQuery);
-        $secondaryColorRgb = explode(",", $secondaryColorQuery);
+
+        // Support both HEX and RGB formats for primary color
+        if (strpos($primaryColorQuery, ',') !== false) {
+            // RGB format: "255,0,0"
+            $primaryColorRgb = explode(",", $primaryColorQuery);
+            $primaryRed = $primaryColorRgb[0];
+            $primaryGreen = $primaryColorRgb[1];
+            $primaryBlue = $primaryColorRgb[2];
+        } else {
+            // HEX format: "#FF0000" or "FF0000"
+            $primaryRgbColor = self::hex2RGB($primaryColorQuery);
+            $primaryRed = $primaryRgbColor["red"];
+            $primaryGreen = $primaryRgbColor["green"];
+            $primaryBlue = $primaryRgbColor["blue"];
+        }
+
+        // Support both HEX and RGB formats for secondary color
+        if (strpos($secondaryColorQuery, ',') !== false) {
+            // RGB format: "255,0,0"
+            $secondaryColorRgb = explode(",", $secondaryColorQuery);
+            $secondaryRed = $secondaryColorRgb[0];
+            $secondaryGreen = $secondaryColorRgb[1];
+            $secondaryBlue = $secondaryColorRgb[2];
+        } else {
+            // HEX format: "#FF0000" or "FF0000"
+            $secondaryRgbColor = self::hex2RGB($secondaryColorQuery);
+            $secondaryRed = $secondaryRgbColor["red"];
+            $secondaryGreen = $secondaryRgbColor["green"];
+            $secondaryBlue = $secondaryRgbColor["blue"];
+        }
 
 
         $primaryMuscleGroups = explode(",", $primaryMuscleGroupsQuery);
@@ -160,7 +203,7 @@ class MuscleImageController {
             $muscleGroupImage = imagecreatefrompng('./resources/images/' . $muscleGroup . '.png');
 
             $index = imagecolorexact($muscleGroupImage,89,136,255);
-            imagecolorset($muscleGroupImage, $index, $primaryColorRgb[0], $primaryColorRgb[1], $primaryColorRgb[2]);
+            imagecolorset($muscleGroupImage, $index, $primaryRed, $primaryGreen, $primaryBlue);
 
             imagealphablending($baseImage, false);
             imagesavealpha($baseImage, true);
@@ -180,7 +223,7 @@ class MuscleImageController {
             $muscleGroupImage = imagecreatefrompng('./resources/images/' . $muscleGroup . '.png');
 
             $index = imagecolorexact($muscleGroupImage,89,136,255);
-            imagecolorset($muscleGroupImage, $index, $secondaryColorRgb[0], $secondaryColorRgb[1], $secondaryColorRgb[2]);
+            imagecolorset($muscleGroupImage, $index, $secondaryRed, $secondaryGreen, $secondaryBlue);
 
             imagealphablending($baseImage, false);
             imagesavealpha($baseImage, true);
