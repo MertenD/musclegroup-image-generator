@@ -127,6 +127,26 @@ This project is built using PHP and Docker, making it easy to run locally or hos
 
 ---
 
+## ⚖️ License & Commercial Use
+
+This project is distributed under a Non-Commercial Source License.
+
+✅ What you CAN do:
+
+- Download, self-host, and modify this API for your own personal, private, or educational use.
+
+❌ What you CANNOT do:
+
+- You may not use this software or any modified versions for commercial purposes.
+
+- This includes using it as a backend or microservice in a fitness app, website, or platform that generates revenue (e.g., via ads, subscriptions, or one-time purchases).
+
+- You may not host this software to provide an API to third parties.
+ 
+If you want to use the generated anatomical images in a commercial context, you must subscribe to the official hosted version.
+
+👉 [Get Commercial Access on RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
+
 ## 🤝 Support & Contribution
 
 If you find this API helpful, please consider giving it a ⭐ on GitHub! 
