@@ -6,18 +6,17 @@
 
 Generates an anatomical image where requested muscle groups are dynamically highlighted on the human body in your color of choice. 
 
-Ideal for apps and websites centered around **sports, exercises, workouts, health, and gym tracking**. Give your users powerful visual feedback on which muscle groups they are targeting by generating dynamic, customized images that fit perfectly into their current workout routine.
+Ideal for apps and websites centered around sports, exercises, workouts, health, and gym tracking. Give your users powerful visual feedback on which muscle groups they are targeting by generating dynamic, customized images that fit perfectly into their current workout routine.
 
 <img src="./example.png" alt="Example image" width="350" />
 
----
+> ⚠️ Important Licensing Note: This source code is strictly for personal and educational use only. If you are building a commercial product (e.g., a monetized fitness app), you must use the official [API hosted on RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator). See the [License section](LICENSE.md) below for details.
 
-## 🚀 Live API Access
+## 🚀 Live API Access & Commercial Use
 
-Don't want to host it yourself? You can access the fully managed, high-availability version of this API on RapidAPI:
-👉 **[Get API Key on RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)**
+Building a commercial fitness app, website, or product? You must use the official, fully managed, high-availability version of this API.
 
----
+👉 [Get your API Key on RapidAPI here](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
 
 ## 📖 API Endpoint Documentation
 
